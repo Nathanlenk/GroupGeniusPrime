@@ -17,8 +17,8 @@ class User(db.Model, UserMixin):
     lastname = db.Column(db.String(150))
 
     notes = db.relationship('Note')
-    room_id = db.Column(db.Integer, db.ForeignKey('room.id')) # connect with room/ many-to-one
-    chores = db.relationship('Chore') # list of chores 
+    #room_id = db.Column(db.Integer, db.ForeignKey('room.id')) # connect with room/ many-to-one
+    #chores = db.relationship('Chore') # list of chores
 
 class Room(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -27,13 +27,13 @@ class Room(db.Model):
     invitation_code = db.Column(db.String(20), default = "")
     budget = db.Column(db.Float, default=0)
 
-    users = db.relationship('User') # list of users
+    #users = db.relationship('User') # list of users
 
 
 class Chore(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
-    description = db.Column(db.String(100))
+    description = db.Column(db.String(200))
     status = db.Column(db.Boolean, default=False)
     #due_date = db.Column(db.DateTime)
 

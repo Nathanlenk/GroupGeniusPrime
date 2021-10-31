@@ -110,20 +110,24 @@ def manage_account():
 
 
 @auth.route('/room')
+@login_required
 def room():
     return render_template("room.html", user=current_user)
 
 
 @auth.route('/chats')
+@login_required
 def chats():
     return render_template("chats.html", user=current_user)
 
 
 @auth.route('/chores-board')
+@login_required
 def chores_board():
     return render_template("chore_board.html", user=current_user)
 
 
 @auth.route('/make-payment')
+@login_required
 def make_payment():
     return render_template("make_payment.html", user=current_user)

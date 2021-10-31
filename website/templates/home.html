@@ -1,5 +1,6 @@
 {% extends "base.html" %}{% block title %}Home{% endblock %}
 
 {% block content %}
-<h1 align = "center">Home</h1>
+<h1 align = "center">Dashboard</h1>
+<p align="center"> Hi, {{ current_user.firstName }} {{ current_user.lastname }}! </p>
 {% endblock %}

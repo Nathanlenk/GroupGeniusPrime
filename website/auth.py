@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User, Room, Chore
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -20,9 +20,9 @@ def login():
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
-                flash('Incorrect password, try again.', category='error')
+                flash('Incorrect Password or Email, please try again.', category='error')
         else:
-            flash('Email does not exist.', category='error')
+            flash('Incorrect Password or Email, please try again.', category='error')
 
     return render_template("login.html", user=current_user)
 
@@ -81,7 +81,7 @@ def manage_account():
         user = User.query.filter_by(email=email).first()
         if user:
             flash('Email already exists.', category='error')
-        elif email and len(email) < 4:
+        elif email and len(email) < 5:
             flash('Email must be greater than 3 characters.', category='error')
         elif firstName and len(firstName) < 2:
             flash('First name must be greater then 1 character.', category='error')
@@ -109,21 +109,19 @@ def manage_account():
     return render_template("manage_account.html", user=current_user)
 
 
-@auth.route('/room')
-def room():
-    return render_template("room.html", user=current_user)
-
-
 @auth.route('/chats')
+@login_required
 def chats():
     return render_template("chats.html", user=current_user)
 
 
 @auth.route('/chores-board')
+@login_required
 def chores_board():
     return render_template("chore_board.html", user=current_user)
 
 
 @auth.route('/make-payment')
+@login_required
 def make_payment():
     return render_template("make_payment.html", user=current_user)

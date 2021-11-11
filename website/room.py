@@ -13,10 +13,14 @@ room = Blueprint('room', __name__)
 @room.route('/room', methods=['GET', 'POST'])
 @login_required
 def room_dashboard():
-
     current_room_id = current_user.room_id
     current_room = Room.query.filter_by(id=current_room_id).first()
-
+    if request.method == 'POST':
+        roomLeave = request.form.get('roomLeave')
+        if roomLeave == "Yes":
+            current_user.room_id = None
+            db.session.commit()
+            return render_template("room.html", user=current_user, room=current_room)
     return render_template("room.html",user=current_user, room=current_room)
 
 
@@ -67,6 +71,7 @@ def room_joining():
             flash(f'Joined! {roomSearch.roomName}', category='success')
             current_user.room_id = roomSearch.id
             db.session.commit()
+            return redirect(url_for('room.room_dashboard'))
         else:
             flash('Please re-check your invitation code')
     else:

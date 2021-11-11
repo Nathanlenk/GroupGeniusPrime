@@ -1,3 +1,4 @@
 website/__pycache__/
 website/database.db
+website/.DS_Store
 .DS_Store

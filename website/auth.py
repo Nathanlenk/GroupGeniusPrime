@@ -109,6 +109,7 @@ def manage_account():
     return render_template("manage_account.html", user=current_user)
 
 
+
 @auth.route('/chats')
 @login_required
 def chats():

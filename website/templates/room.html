@@ -30,6 +30,12 @@
   	{{ user.firstName }} {{ user.lastname }} <span class="badge badge-primary badge-pill">Admin</span>
   </li>
   </div>
+  {% elif user.id == current_user.id %}
+  <div>
+  <li class="list-group-item list-group-item-action list-group-item-primary">
+    {{ user.firstName }} {{ user.lastname }} <span class="badge badge-secondary badge-pill">You</span>
+  </li>
+  </div>
   {% else %}
   <div>
   <li class="list-group-item list-group-item-action list-group-item-info">
@@ -52,6 +58,45 @@
     {{room.invitation_code}}
   </div>
 </div>
+
+{% else %}
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#leaveRoom">
+  Leave Room
+</button>
+
+<!-- Modal -->
+<form method = "POST">
+    <div class = "form-group">
+      <div class="modal fade" id="leaveRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Leave room</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to leave the room
+      </div>
+      <div>
+        <input
+        type="text"
+        class ="form-control"
+        id="roomLeave"
+        name="roomLeave"
+        placeholder="Type Yes to confirm"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+</form>
 
   
   {% endif %}

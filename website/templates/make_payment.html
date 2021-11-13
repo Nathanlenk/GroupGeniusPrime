@@ -1,6 +1,116 @@
 {% extends "base.html" %}{% block title %}Makepayment{% endblock %}
 
 {% block content %}
+<head>
+  <style>
+    .myDiv{
+      border: 10px ridge grey;
+      background-color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    .complete{
+      border: 10px ridge grey;
+      background-color: lightgreen;
+      text-align: center;
+      padding: 10px;
+    }
+    .incomplete{
+      border: 10px ridge grey;
+      background-color: lightcoral;
+      text-align: center;
+      padding: 10px;
+    }
+    p {
+      font-size: 30px;
+    }
+  </style>
+</head>
+
 <h1 align = "center">Make payment</h1>
+
+<br>
+<br>
+
+<body>
+  <h2 align="center"> This months payment is:</h2>
+
+  {% if user.payment == True %}
+  <div class = "complete">
+    <p> Complete! </p>
+  </div>
+
+  {% elif user.payment == False %}
+
+  <div class = "incomplete">
+    <p> Still Due on {{user.paymentDate}}</p>
+  </div>
+
+  {% endif %}
+</body>
+
+
+<br>
+<br>
+
+<form action = "{{user.paymentLink}}" target = "_blank">
+<button type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModalCenter">
+  --- Click here to be brought to your payment link ---
+</button>
+</form>
+<br>
+<br>
+
+<h2 align="center"> Change Payment Due date</h2>
+<form method = "POST">
+    <div class = "form-group">
+        <label for="date">Current Due Date: {{user.paymentDate}}</label>
+        <input
+        type="date"
+        class ="form-control"
+        id="date"
+        name="date"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Change Due Date</button>
+</form>
+
+<br>
+<br>
+
+<h2 align="center"> Change Payment Status</h2>
+<form method = "POST">
+  <button name="change" type="submit" class="btn btn-primary btn-block" value ="change">Change Payment Status </button>
+</form>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Payment Link Clicked</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        The payment link has been clicked.
+        <br>
+        Was the payment for this month completed?
+      </div>
+      <div class="modal-footer">
+        <form method = "POST">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="finish" id="finish" value="finish">
+            <label class="form-check-label" for="finish">Yes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="notFinish" id="notFinish" value="notFinish">
+            <label class="form-check-label" for="notFinish">No</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

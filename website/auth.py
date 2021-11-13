@@ -3,6 +3,7 @@ from .models import User, Room, Chore
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+from datetime import date
 
 auth = Blueprint('auth', __name__)
 
@@ -109,7 +110,6 @@ def manage_account():
     return render_template("manage_account.html", user=current_user)
 
 
-
 @auth.route('/chats')
 @login_required
 def chats():
@@ -122,7 +122,30 @@ def chores_board():
     return render_template("chore_board.html", user=current_user)
 
 
-@auth.route('/make-payment')
+@auth.route('/make-payment', methods=['GET', 'POST'])
 @login_required
 def make_payment():
+    if request.method == 'POST':
+        if request.form.get('date'):
+            newdate = request.form.get('date')
+            year = int(newdate[:4])
+            month = int(newdate[5:7])
+            day = int(newdate[8:10])
+            current_user.paymentDate = date(year, month, day)
+            db.session.commit()
+        if request.form.get('finish'):
+            current_user.payment = True
+            db.session.commit()
+        if request.form.get('change'):
+            if current_user.payment:
+                current_user.payment = False
+            else:
+                current_user.payment = True
+            db.session.commit()
+       # if request.form.get('due'):
+            #current_user.payment = False
+            #db.session.commit()
+        #if request.form.get('complete'):
+            #current_user.payment = True
+            #db.session.commit()
     return render_template("make_payment.html", user=current_user)

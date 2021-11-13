@@ -1,12 +1,21 @@
 {% extends "base.html" %}{% block title %}ManageAccount{% endblock %}
 
 {% block content %}
+<head>
+  <style>
+    .myDiv{
+      border: 10px ridge grey;
+      background-color: white;
+      padding: 50px;
+  </style>
+</head>
+
 <h1 align = "center">Manage Account</h1>
 <h3 align = "center"> Change Information </h3>
-
+<div class = myDiv>
 <form method = "POST">
     <div class = "form-group">
-        <label for="email">Email Address</label>
+        <label for="email">Current Email: {{user.email}}</label>
         <input
         type="email"
         class ="form-control"
@@ -21,7 +30,7 @@
 
 <form method = "POST">
     <div class="form-group">
-        <label for="firstName">First Name</label>
+        <label for="firstName">Current First Name: {{user.firstName}}</label>
         <input
           type="text"
           class="form-control"
@@ -37,7 +46,7 @@
 
 <form method = "POST">
     <div class = "form-group">
-        <label for="lastname">Last Name</label>
+        <label for="lastname">Current Last Name: {{user.lastname}}</label>
         <input
         type="text"
         class ="form-control"
@@ -73,4 +82,5 @@
 
     <button type="submit" class="btn btn-primary">Change Password</button>
 </form>
+</div>
 {% endblock %}

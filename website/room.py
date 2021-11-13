@@ -73,13 +73,10 @@ def room_joining():
             db.session.commit()
             return redirect(url_for('room.room_dashboard'))
         else:
-            flash('Please re-check your invitation code')
+            flash('Please re-check your invitation code', category='error')
     else:
         flash('There is no room with that name', category='error')
         return render_template("room_joining.html", user=current_user)
-
-
-    
     return render_template("room.html", user=current_user, room=roomSearch)
 
 @room.route('/room-management', methods=['GET', 'POST'])

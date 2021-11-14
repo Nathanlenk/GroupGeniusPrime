@@ -13,6 +13,7 @@
 
 {% else %}
 <h2 align = "center">{{ room.roomName }}</h1>
+<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'chores.chores_dashboard') }}';">Chores Dashboard</button>
 
 {%if user.id == room.admin_id%}
 <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'room.room_management') }}';">Room Management</button>
@@ -21,24 +22,24 @@
 <br>
 <br>
 
-<h2 align="left">Members</h1>
+<h3 align="left">Members</h3>
 <ul class="list-group" id="users">
   {% for user in room.users %}
-  {%if room.admin_id == user.id%}
+  {% if room.admin_id == user.id %}
   <div>
-  <li class="list-group-item list-group-item-action list-group-item-primary">
+  <li class="list-group-item list-group-item-action list-group-item-primary col-4">
   	{{ user.firstName }} {{ user.lastname }} <span class="badge badge-primary badge-pill">Admin</span>
   </li>
   </div>
   {% elif user.id == current_user.id %}
   <div>
-  <li class="list-group-item list-group-item-action list-group-item-primary">
+  <li class="list-group-item list-group-item-action list-group-item-primary col-4">
     {{ user.firstName }} {{ user.lastname }} <span class="badge badge-secondary badge-pill">You</span>
   </li>
   </div>
   {% else %}
   <div>
-  <li class="list-group-item list-group-item-action list-group-item-info">
+  <li class="list-group-item list-group-item-action list-group-item-info col-4">
     {{ user.firstName }} {{ user.lastname }}
   </li>
   </div>
@@ -60,8 +61,9 @@
 </div>
 
 {% else %}
+
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#leaveRoom">
+<button type="button" class="btn btn-danger col-4" data-toggle="modal" data-target="#leaveRoom">
   Leave Room
 </button>
 
@@ -72,18 +74,15 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Leave room</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Do you want to leave the room?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        Do you want to leave the room
-      </div>
       <div>
         <input
         type="text"
-        class ="form-control"
+        class ="form-control col-5"
         id="roomLeave"
         name="roomLeave"
         placeholder="Type Yes to confirm"/>

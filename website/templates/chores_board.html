@@ -1,0 +1,84 @@
+{% extends "base.html" %}{% block title %}Chores{% endblock %}
+
+{% block content %}
+<h1 align = "center">Chores Board</h1>
+
+{%if user.id == room.admin_id%}
+<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'room.room_dashboard') }}';">Back</button>
+<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'chores.chore_creation') }}';">Create new chore</button>
+<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'chores.chores_management') }}';">Chores Management</button>
+{% endif %}
+<br>
+<br>
+
+<h3 align="left">Chores List</h3>
+
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr class="table-info">
+      <th scope="col">Chore Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Member</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+      {% if user.id == room.admin_id %}
+      <th scope="col">Delete</th>
+      {% endif %}
+    </tr>
+  </thead>
+
+  {% for chore in room.chores %}
+  <tbody>
+    <tr>
+      <td>{{chore.choreName}}</td>
+      <td>{{chore.description}}</td>
+      <td>{{chore.due_date}}</td>
+      <td>{{chore.assignee}}</td>
+      {% if chore.status == 0 %}
+      <td>Ongoging</td>
+      {% else %}
+      <td class="table-success" >Finished</td>
+      {% endif %}
+
+      {% if user.id == room.admin_id %}
+      <td align = "left"> 
+    {% if chore.status == 0 %}
+      <button type="button" class="btn btn-primary btn-sm" onClick="checkChore({{ chore.id }})">
+      <span aria-hidden="true">&check;</span>
+    </button>
+    {% else %}
+      <button type="button" class="btn btn-warning btn-sm" onClick="uncheckChore({{ chore.id }})">
+      <span aria-hidden="true">&#9747;</span>
+    </button>
+    </td>
+    {% endif %}
+
+    {% elif user.id == chore.user_id %}
+    {% if chore.status == 0 %}
+    <td align = "left"> 
+      <button type="button" class="btn btn-primary btn-sm" onClick="checkChore({{ chore.id }})">
+      <span aria-hidden="true">&check;</span>
+    </button>
+    </td>
+    {% else %}
+    <td align = "left"> 
+      <button type="button" class="btn btn-warning btn-sm" onClick="uncheckChore({{ chore.id }})">
+      <span aria-hidden="true">&#9747;</span>
+    </button>
+    </td>
+    {% endif %}
+    {% endif %}
+	{% if user.id == room.admin_id %}
+    <td align = "left"> 
+      <button type="button" class="btn btn-danger btn-sm" onClick="deleteChore({{ chore.id }})">
+      <span aria-hidden="true">&cross;</span>
+    </button>
+    </td>
+    </tr>
+    {% endif %}
+  </tbody>
+
+{% endfor %}
+</table>
+{% endblock %}

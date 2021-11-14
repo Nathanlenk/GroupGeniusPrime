@@ -35,7 +35,9 @@
                 <a class="nav-item nav-link" id="manageaccount" href="/manage-account">Manage Your Account</a>
                 <a class="nav-item nav-link" id="room" href="/room">Room</a>
                 <a class="nav-item nav-link" id="chats" href="/chats">Chats</a>
+                {% if user.room_id is not none %}
                 <a class="nav-item nav-link" id="choresboard" href="/chores-board">Chores Board</a>
+                {% endif %}
                 <a class="nav-item nav-link" id="makepayment" href="/make-payment">Make a Payment</a>
                 {% else %}
                 <a class="nav-item nav-link" id="sigup" href="/sign-up">Sign Up</a>

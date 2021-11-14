@@ -1,6 +1,8 @@
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+from datetime import date
+
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,9 +37,10 @@ class Room(db.Model,UserMixin):
 class Chore(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     choreName = db.Column(db.String(30))
-    description = db.Column(db.String(200))
+    description = db.Column(db.String(200), default="No description")
     status = db.Column(db.Boolean, default=False)
-    #due_date = db.Column(db.DateTime) # not ready
-
+    due_date = db.Column(db.Date, default=func.now())
+    assignee = db.Column(db.String(200))
+    
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) # connect with user/ many-to-one
     room_id = db.Column(db.Integer, db.ForeignKey('room.id')) # connect with room/ many-to-one

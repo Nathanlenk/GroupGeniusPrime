@@ -116,12 +116,6 @@ def chats():
     return render_template("chats.html", user=current_user)
 
 
-@auth.route('/chores-board')
-@login_required
-def chores_board():
-    return render_template("chore_board.html", user=current_user)
-
-
 @auth.route('/make-payment')
 @login_required
 def make_payment():

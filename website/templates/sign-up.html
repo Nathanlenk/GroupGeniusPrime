@@ -1,8 +1,20 @@
 {% extends "base.html" %}{% block title %}Sign Up{% endblock %}
 
 {% block content %}
+<h1 align="center">Sign-Up</h1>
+<br>
+<head>
+  <style>
+    .myDiv{
+      border: 10px ridge;
+      border-color: #5E83A2;
+      background-color: white;
+      padding: 50px;
+  </style>
+</head>
+
+<div class="myDiv">
 <form method = "POST">
-    <h3 align = "center"> Sign Up </h3>
     <div class = "form-group">
         <label for="email">Email Address</label>
         <input 
@@ -61,4 +73,5 @@
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
 {% endblock %}

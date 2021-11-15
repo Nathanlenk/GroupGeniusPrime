@@ -4,8 +4,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from datetime import date
+import re
 
 auth = Blueprint('auth', __name__)
+
+
+def has_numbers(inputString):
+    return bool(re.search(r'\d', inputString))
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -51,8 +56,12 @@ def sign_up():
             flash('Email must be greater than 3 characters.', category='error')
         elif len(firstName) < 2:
             flash('First name must be greater then 1 character.', category='error')
+        elif has_numbers(firstName):
+            flash('First name must not contain numbers.', category='error')
         elif len(lastname) < 2:
             flash('Last name must be greater than 1 character.', category='error')
+        elif has_numbers(lastname):
+            flash('Last name must not contain numbers.', category='error')
         elif password1 != password2:
             flash('Passwords don\'t match.', category='error')
         elif len(password1) < 7:
@@ -142,10 +151,10 @@ def make_payment():
             else:
                 current_user.payment = True
             db.session.commit()
-       # if request.form.get('due'):
-            #current_user.payment = False
-            #db.session.commit()
-        #if request.form.get('complete'):
-            #current_user.payment = True
-            #db.session.commit()
+    # if request.form.get('due'):
+    # current_user.payment = False
+    # db.session.commit()
+    # if request.form.get('complete'):
+    # current_user.payment = True
+    # db.session.commit()
     return render_template("make_payment.html", user=current_user)

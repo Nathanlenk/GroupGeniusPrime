@@ -3,20 +3,16 @@
 {% block content %}
 <head>
   <style>
-    .myDiv{
-      border: 10px ridge grey;
-      background-color: white;
-      text-align: center;
-      padding: 10px;
-    }
     .complete{
-      border: 10px ridge grey;
+      border: 10px ridge;
+      border-color: #5E83A2;
       background-color: lightgreen;
       text-align: center;
       padding: 10px;
     }
     .incomplete{
-      border: 10px ridge grey;
+      border: 10px ridge;
+      border-color: #5E83A2;
       background-color: lightcoral;
       text-align: center;
       padding: 10px;
@@ -24,14 +20,19 @@
     p {
       font-size: 30px;
     }
+    .myDiv2{
+      border: 10px ridge;
+      border-color: #5E83A2;
+      background-color: #E5E5E5;
+      padding: 30px 50px 50px 50px;
+     }
   </style>
 </head>
 
 <h1 align = "center">Make payment</h1>
 
 <br>
-<br>
-
+<div class = "myDiv2">
 <body>
   <h2 align="center"> This months payment is:</h2>
 
@@ -71,7 +72,7 @@
         id="date"
         name="date"/>
     </div>
-    <button type="submit" class="btn btn-primary">Change Due Date</button>
+    <button type="submit" class="btn btn-primary btn-block">Change Due Date</button>
 </form>
 
 <br>
@@ -113,4 +114,5 @@
   </div>
 </div>
 
+</div>
 {% endblock %}

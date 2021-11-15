@@ -1,0 +1,71 @@
+{% extends "base.html" %}{% block title %}Chore Creation{% endblock %}
+
+{% block content %}
+<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'chores.chores_dashboard') }}';">Back</button>
+<h1 align = "center">Add a new chore</h1>
+<form method = "POST">
+    <div class = "form-group col-sm-7">
+        <label for="choreName">Chore Name</label>
+        <input 
+        type="name" 
+        class ="form-control" 
+        id="choreName" 
+        name="choreName" 
+        placeholder="e.g. Laundry"/>
+    </div>
+    
+    <div class = "form-group col-sm-7 ">
+        <label for="description">Description</label>
+        <textarea 
+        type="text"
+        rows = "3"
+        class ="form-control" 
+        id="description" 
+        name="description"
+        placeholder="Enter Chore's Description"></textarea>
+    </div>
+    <div class="form-row col-sm-7 ">
+        <div class="col-auto">
+            <div class="form-group">
+            <label for="day">Day</label>
+            <select class="form-control" id="day" name ="day" type="text">
+                {% for i in range(1,32) %}
+                <option>{{i}}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+
+        <div class="col-auto">
+            <div class="form-group">
+            <label for="month">Month</label>
+            <select class="form-control" id="month" name ="month" type="text">
+                {% for i in range(1,13) %}
+                <option>{{i}}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-group">
+            <label for="year">Year</label>
+            <select class="form-control" id="year" name ="year" type="text">
+                <option>2021</option>
+                <option>2022</option>
+            </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-sm-7">
+            <label for="roommate">Assign a roommate</label>
+            <select class="form-control" id="roommate" name ="roommate" type = "name">
+                {% for user in room.users %}
+                <option>{{ user.firstName }}</option>
+                {% endfor %}
+            </select>
+            </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}

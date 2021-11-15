@@ -16,10 +16,12 @@ def create_app():
     from .views import views
     from .auth import auth
     from .room import room
+    from .chores import chores
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(room, url_prefix='/')
+    app.register_blueprint(chores, url_prefix='/')
 
     from .models import User, Note, Room, Chore
     create_database(app)

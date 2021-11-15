@@ -44,7 +44,8 @@ class Chore(db.Model):
     choreName = db.Column(db.String(30))
     description = db.Column(db.String(200))
     status = db.Column(db.Boolean, default=False)
-    # due_date = db.Column(db.DateTime) # not ready
+    due_date = db.Column(db.DateTime)
+    assignee = db.Column(db.String(200))
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # connect with user/ many-to-one
     room_id = db.Column(db.Integer, db.ForeignKey('room.id'))  # connect with room/ many-to-one

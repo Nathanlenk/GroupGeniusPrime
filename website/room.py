@@ -9,7 +9,6 @@ import string
 room = Blueprint('room', __name__)
 
 
-
 @room.route('/room', methods=['GET', 'POST'])
 @login_required
 def room_dashboard():
@@ -21,7 +20,7 @@ def room_dashboard():
             current_user.room_id = None
             db.session.commit()
             return render_template("room.html", user=current_user, room=current_room)
-    return render_template("room.html",user=current_user, room=current_room)
+    return render_template("room.html", user=current_user, room=current_room)
 
 
 @room.route('/room-creation', methods=['GET', 'POST'])
@@ -29,7 +28,7 @@ def room_dashboard():
 def room_creation():
     numbers = string.digits
     texts = string.ascii_uppercase
-    invitation_code=''
+    invitation_code = ''
     for i in range(5):
         invitation_code += random.choice(numbers)
         invitation_code += random.choice(texts)
@@ -47,16 +46,18 @@ def room_creation():
     elif int(roomCapacity) < 2:
         flash('Room capacity must be greater than 1.', category='error')
     else:
-        new_room = Room(roomName=roomName, roomCapacity=int(roomCapacity), admin_id=current_user.id, budget=0, invitation_code=invitation_code)
+        new_room = Room(roomName=roomName, roomCapacity=int(roomCapacity), admin_id=current_user.id, budget=0,
+                        invitation_code=invitation_code)
         db.session.add(new_room)
         db.session.commit()
         flash('Room created!', category='success')
         current_room = Room.query.filter_by(roomName=roomName).first()
         current_user.room_id = current_room.id
         db.session.commit()
-        return render_template("room.html", user=current_user,room=current_room)
+        return render_template("room.html", user=current_user, room=current_room)
 
     return render_template("room_creation.html", user=current_user)
+
 
 @room.route('/room-joining', methods=['GET', 'POST'])
 @login_required
@@ -79,6 +80,7 @@ def room_joining():
         return render_template("room_joining.html", user=current_user)
     return render_template("room.html", user=current_user, room=roomSearch)
 
+
 @room.route('/room-management', methods=['GET', 'POST'])
 @login_required
 def room_management():
@@ -87,7 +89,7 @@ def room_management():
         roomCapacity = request.form.get('roomCapacity')
         roomBudget = request.form.get('budget')
         invitation_code = request.form.get('invitation_code')
-    room=Room.query.filter_by(roomName=roomName).first()
+    room = Room.query.filter_by(roomName=roomName).first()
     current_room = Room.query.filter_by(id=current_user.room_id).first()
 
     if room:
@@ -116,7 +118,6 @@ def room_management():
             current_room.invitation_code = invitation_code
             flash('Room invitation code updated', category='success')
         db.session.commit()
-        #current_room = Room.query.filter_by(roomName=room.roomName).first()
+        # current_room = Room.query.filter_by(roomName=room.roomName).first()
 
-    return render_template("room_management.html", user=current_user)
-
+    return render_template("room_management.html", user=current_user, room=current_room)

@@ -17,7 +17,15 @@
       <title>{% block title %}Home{% endblock %}</title>
         <style>
             .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    background-color: #2478b7 !important;
+            background-color: #2478b7 !important;
+            }
+            .navbar-nav-centered a {
+            float: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            }
 }
         </style>
     </head>
@@ -33,6 +41,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbar">
               <div class="navbar-nav">
+                  <div class ="navbar-nav-centered">
+                    <a class="navbar-brand" href="/">
+                      <img src="/static/icon.png" width ="120" height="60" alt="">
+                     </a>
+                  </div>
                 {% if user.is_authenticated %}
                 <a style="color: #ffffff" class ="nav-item nav-link" id="home" href="/">Home</a>
                 <a style="color: #ffffff" class="nav-item nav-link" id="manageaccount" href="/manage-account">Manage Account</a>

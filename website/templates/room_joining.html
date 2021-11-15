@@ -1,25 +1,34 @@
 {% extends "base.html" %}{% block title %}Room Creation{% endblock %}
 
 {% block content %}
+<head>
+  <style>
+    .myDiv{
+      border: 10px ridge;
+      border-color: #5E83A2;
+      background-color: #E5E5E5;
+      padding: 25px 50px 25px 50px;
+      }
+     .split{
+      float:left;
+      }
+  </style>
+</head>
 
+<h1 align = "center">Find a room to join</h1>
 <br>
-<br>
-<br>
-
-<h3 align = "center">Find a room to join</h3>
-<br>
-<br>
+<div class="myDiv">
 <form method = "POST">
   <div class="form-row ">
-    <div class="col">
+    <div class="col-sm-5">
       <input
        type="text" 
        class="form-control"
        id="roomName" 
        name="roomName" 
-       placeholder="Search for room...">
+       placeholder="Search for room name...">
     </div>
-    <div class="col">
+    <div class="col-sm-5">
       <input
        type="text" 
        class="form-control"
@@ -28,9 +37,10 @@
        placeholder="Your invitation code...">
     </div>
     <div class="col">
-      <button type="submit" class="btn btn-primary">Join</button>
+      <button type="submit" class="btn btn-block btn-primary">Join</button>
     </div>
   </div>
+</div>
 </form>
 
 {% endblock %}

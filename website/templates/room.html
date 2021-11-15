@@ -2,26 +2,35 @@
 
 {% block content %}
 
+<head>
+  <style>
+    .myDiv{
+      border: 10px ridge;
+      border-color: #5E83A2;
+      background-color: #E5E5E5;
+      padding: 25px 50px 50px 50px;
+      }
+     .split{
+      float:left;
+      }
+  </style>
+</head>
 
 <h1 align = "center">Room Dashboard</h1>
 <br>
-<br>
+
+<div class = myDiv>
 
 {%if user.room_id is none%}
-<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'room.room_creation') }}';">Create new room</button>
-<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'room.room_joining') }}';">Join a room</button>
-
+  <div align = center>
+    <button type="button" class="btn btn-primary btn-lg btn-block split" style="width:48%" onclick="window.location.href='{{ url_for( 'room.room_creation') }}';">Create new room</button>
+    <button type="button" class="btn btn-primary btn-lg btn-block" style="width:48%" onclick="window.location.href='{{ url_for( 'room.room_joining') }}';">Join a room</button>
+  </div>
 {% else %}
-<h2 align = "center">{{ room.roomName }}</h1>
+<h1 align="center">Room Name: {{ room.roomName }}</h1>
 
-{%if user.id == room.admin_id%}
-<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'room.room_management') }}';">Room Management</button>
-{% endif %}
 
-<br>
-<br>
-
-<h2 align="left">Members</h1>
+<h2 align="left">Members:</h2>
 <ul class="list-group" id="users">
   {% for user in room.users %}
   {%if room.admin_id == user.id%}
@@ -52,7 +61,8 @@
   <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     Click to see the invitation code
   </a>
-</p>
+    <button type="button" class="btn btn-primary pull-right" onclick="window.location.href='{{ url_for( 'room.room_management') }}';">Room Management</button>
+  </p>
 <div class="collapse" id="collapseExample">
   <div class="card card-body" >
     {{room.invitation_code}}
@@ -64,6 +74,8 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#leaveRoom">
   Leave Room
 </button>
+
+</div>
 
 <!-- Modal -->
 <form method = "POST">
@@ -98,11 +110,8 @@
     </div>
 </form>
 
-  
-  {% endif %}
-  {% endif %}
-
-
+{% endif %}
+{% endif %}
 
 {% endblock %}
 

@@ -1,0 +1,65 @@
+{% extends "base.html" %}{% block title %}Room Management{% endblock %}
+
+{% block content %}
+<head>
+  <style>
+    .myDiv{
+      border: 10px ridge;
+      border-color: #5E83A2;
+      background-color: #E5E5E5;
+      padding: 50px;
+      }
+  </style>
+</head>
+
+<h1 align = "center">Room Management</h1>
+<h3 align = "center"> Change Information </h3>
+
+<div class = "myDiv">
+<form method = "POST">
+    <div class = "form-group">
+        <label for="roomName">Room Name</label>
+        <input
+        type="text"
+        class ="form-control"
+        id="roomName"
+        name="roomName"
+        placeholder="i.e. Genius Prime"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Change Room Name</button>
+</form>
+
+<br>
+
+<form method = "POST">
+    <div class="form-group">
+        <label for="roomCapacity">Room Capacity</label>
+        <input
+          type="text"
+          class="form-control"
+          id="roomCapacity"
+          name="roomCapacity"
+          placeholder="Change Room Capacity"
+        />
+      </div>
+    <button type="submit" class="btn btn-primary">Change Room Capacity</button>
+</form>
+
+<br>
+
+<form method = "POST">
+    <div class = "form-group">
+        <label for="budget">Room Budget</label>
+        <input
+        type="text"
+        class ="form-control"
+        id="budget"
+        name="budget"
+        placeholder="Set Room Budget"/>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Set Room Budget</button>
+</form>
+
+</div>
+{% endblock %}

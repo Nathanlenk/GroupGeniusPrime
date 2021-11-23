@@ -54,10 +54,10 @@
 </ul>
   {% endif %}
   {% endfor %}
-<br>
-<br>
+
   {%if user.id == room.admin_id%}
   <p>
+    <br>
   <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     Click to see the invitation code
   </a>
@@ -71,6 +71,7 @@
 
 {% else %}
   <!-- Button trigger modal -->
+  <p><br></p>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#leaveRoom">
   Leave Room
 </button>

@@ -1,10 +1,23 @@
 {% extends "base.html" %}{% block title %}Chore Creation{% endblock %}
 
 {% block content %}
-<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'chores.chores_dashboard') }}';">Back</button>
+<head>
+    <style>
+        .myDiv{
+        border: 10px ridge;
+        border-color: #5E83A2;
+        background-color: #E5E5E5;
+        padding: 50px 150px;
+        }
+    </style>
+</head>
+
 <h1 align = "center">Add a new chore</h1>
+<br>
+
+<div class = "myDiv">
 <form method = "POST">
-    <div class = "form-group col-sm-7">
+    <div class = "form-group">
         <label for="choreName">Chore Name</label>
         <input 
         type="name" 
@@ -14,7 +27,7 @@
         placeholder="e.g. Laundry"/>
     </div>
     
-    <div class = "form-group col-sm-7 ">
+    <div class = "form-group">
         <label for="description">Description</label>
         <textarea 
         type="text"
@@ -24,7 +37,7 @@
         name="description"
         placeholder="Enter Chore's Description"></textarea>
     </div>
-    <div class="form-row col-sm-7 ">
+    <div class="form-row">
         <div class="col-auto">
             <div class="form-group">
             <label for="day">Day</label>
@@ -56,7 +69,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group col-sm-7">
+    <div class="form-group">
             <label for="roommate">Assign a roommate</label>
             <select class="form-control" id="roommate" name ="roommate" type = "name">
                 {% for user in room.users %}
@@ -65,7 +78,14 @@
             </select>
             </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class = "row">
+        <div class="col-6 text-left">
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </div>
+        <div class="col-6 text-right">
+            <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url_for( 'chores.chores_dashboard') }}';">Back</button>
+        </div>
+    </div>
 </form>
-
+</div>
 {% endblock %}

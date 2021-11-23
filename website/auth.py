@@ -48,6 +48,7 @@ def sign_up():
         lastname = request.form.get('lastname')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        payment = request.form.get('link')
 
         user = User.query.filter_by(email=email).first()
         if user:
@@ -67,8 +68,9 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, firstName=firstName, lastname=lastname, password=generate_password_hash(
-                password1, method='sha256'))
+            new_user = User(email=email, firstName=firstName, lastname=lastname, paymentLink=payment,
+                            password=generate_password_hash(
+                                password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
@@ -87,6 +89,7 @@ def manage_account():
         lastname = request.form.get('lastname')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        payment = request.form.get('payment')
 
         user = User.query.filter_by(email=email).first()
         if user:
@@ -101,6 +104,8 @@ def manage_account():
             flash('Passwords don\'t match.', category='error')
         elif password1 and len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
+        elif payment and len(payment) < 7:
+            flash('Link must be at least 7 characters.', category='error')
         else:
             if email:
                 current_user.email = email
@@ -114,6 +119,9 @@ def manage_account():
             if password1:
                 current_user.password = generate_password_hash(password1, method='sha256')
                 flash('Password updated', category='success')
+            if payment:
+                current_user.paymentLink = payment
+                flash('Payment link updated', category='success')
             db.session.commit()
 
     return render_template("manage_account.html", user=current_user)
@@ -152,3 +160,5 @@ def make_payment():
     # current_user.payment = True
     # db.session.commit()
     return render_template("make_payment.html", user=current_user)
+
+

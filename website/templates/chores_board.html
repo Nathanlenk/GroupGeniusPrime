@@ -2,19 +2,14 @@
 
 {% block content %}
 <h1 align = "center">Chores Board</h1>
+<br>
 
-{%if user.id == room.admin_id%}
-<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'room.room_dashboard') }}';">Back</button>
-<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'chores.chore_creation') }}';">Create new chore</button>
-<button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url_for( 'chores.chores_management') }}';">Chores Management</button>
-{% endif %}
-<br>
-<br>
+<div class = "myDiv">
 
 <h3 align="left">Chores List</h3>
 
-<table class="table table-hover table-bordered">
-  <thead>
+<table class="table table-hover table-bordered table-primary">
+  <thead class="thead-primary">
     <tr class="table-info">
       <th scope="col">Chore Name</th>
       <th scope="col">Description</th>
@@ -81,4 +76,22 @@
 
 {% endfor %}
 </table>
+<br>
+  {%if user.id == room.admin_id%}
+  <div class = "row">
+        <div class="col-4 text-left">
+            <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url_for( 'room.room_dashboard') }}';">Back To Room</button>
+        </div>
+
+        <div class="col-4">
+            <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url_for( 'chores.chore_creation') }}';">Create new chore</button>
+        </div>
+
+        <div class="col-4 text-right">
+            <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url_for( 'chores.chores_management') }}';">Chores Management</button>
+        </div>
+  </div>
+  {% endif %}
+</div>
+
 {% endblock %}

@@ -1,14 +1,16 @@
 from flask import Blueprint, render_template
-
+from .models import User, Room, Chore
 from flask_login import login_required, current_user
 
 views = Blueprint('views', __name__)
 
 
-@views.route('/')
+@views.route('/', methods=['GET'])
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+    current_room_id = current_user.room_id
+    current_room = Room.query.filter_by(id=current_room_id).first()
+    return render_template("home.html", user=current_user, room=current_room, len=len(current_user.chores))
 
 
 @views.route('/room-creation')

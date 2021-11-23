@@ -2,20 +2,14 @@
 
 {% block content %}
 <head>
-  <style>
-    .myDiv{
-      border: 10px ridge;
-      border-color: #5E83A2;
-      background-color: #E5E5E5;
-      padding: 50px;
-      }
-      .subDiv{
-      border: 5px ridge;
-      border-color: #5E83A2;
-      background-color: #E5E5E5;
-      padding: 10px;
-      }
-  </style>
+    <style>
+        .myDiv{
+        border: 10px ridge;
+        border-color: #5E83A2;
+        background-color: #E5E5E5;
+        padding: 50px 150px;
+        }
+    </style>
 </head>
 
 <h1 align = "center">Manage Account</h1>
@@ -62,6 +56,22 @@
         placeholder="New last name"/>
     </div>
     <button type="submit" class="btn btn-primary">Change Last Name</button>
+</form>
+
+<br>
+
+<form method = "POST">
+    <div class = "form-group">
+        <label for="payment">Current Payment Link: {{user.paymentLink}}</label>
+        <input
+        type="text"
+        class ="form-control"
+        id="payment"
+        name="payment"
+        placeholder="New payment link"/>
+        (make sure to include the full link ie http://***)
+    </div>
+    <button type="submit" class="btn btn-primary">Change Payment Link</button>
 </form>
 
 <br>

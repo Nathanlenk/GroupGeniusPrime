@@ -19,6 +19,14 @@
       text-align: center;
       padding: 10px 1px 1px 5px;
     }
+    .anotherDiv{
+      width: 48%;
+      border: 10px ridge;
+      border-color: #5E83A2;
+      background-color: #f7f9f9;
+      text-align: center;
+      padding: 10px 10px 20px 10px;
+    }
     p {
       font-size: 30px;
     }
@@ -65,27 +73,29 @@
 <br>
 <br>
 <div class="row">
-  <div class = "col">
-<h2 align="center"> Change Payment Due date</h2>
-<form method = "POST">
-    <span style="white-space:nowrap">
-        <label for="date">Current Due Date: {{user.paymentDate}}</label>
-        <input
-        type="date"
-        class ="form-control"
-        id="date"
-        name="date"
-        style="width:35%"
-        />
-    </span>
-  <div align="center">
+  <div class = "anotherDiv">
+    <h2 align="center"> Change Payment Due date</h2>
+     <div align="center">
+        <form align="center" method = "POST">
+            <span style="white-space:nowrap">
+            <label for="date">Current Due Date: {{user.paymentDate}}</label>
+            <input
+            type="date"
+            class ="form-control"
+            id="date"
+            name="date"
+            style="width:35%"
+            />
+            </span>
     <button type="submit" class="btn btn-primary btn-block" style="width:80%">Change Due Date</button>
   </div>
 </form>
   </div>
 <br>
 <br>
-<div class = "col">
+  <div class = "col">
+  </div>
+<div class = "anotherDiv">
 <h2 align="center"> Change Payment Status</h2>
 <form method = "POST">
   <div align="center">

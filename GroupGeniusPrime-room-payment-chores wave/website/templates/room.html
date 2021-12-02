@@ -1,0 +1,119 @@
+{% extends "base.html" %}{% block title %}Room Dashboard{% endblock %}
+
+{% block content %}
+
+<head>
+  <style>
+    .myDiv{
+      border: 10px ridge;
+      border-color: #5E83A2;
+      background-color: #E5E5E5;
+      padding: 25px 50px 50px 50px;
+      }
+     .split{
+      float:left;
+      }
+  </style>
+</head>
+
+<h1 align = "center">Room Dashboard</h1>
+<br>
+
+<div class = myDiv>
+
+{%if user.room_id is none%}
+  <div align = center>
+    <button type="button" class="btn btn-primary btn-lg btn-block split" style="width:48%" onclick="window.location.href='{{ url_for( 'room.room_creation') }}';">Create new room</button>
+    <button type="button" class="btn btn-primary btn-lg btn-block" style="width:48%" onclick="window.location.href='{{ url_for( 'room.room_joining') }}';">Join a room</button>
+  </div>
+{% else %}
+<h1 align="center">Room Name: {{ room.roomName }}</h1>
+
+
+<h2 align="left">Members:</h2>
+<ul class="list-group" id="users">
+  {% for user in room.users %}
+  {%if room.admin_id == user.id%}
+  <div>
+  <li class="list-group-item list-group-item-action list-group-item-primary">
+  	{{ user.firstName }} {{ user.lastname }} <span class="badge badge-primary badge-pill">Admin</span>
+  </li>
+  </div>
+  {% elif user.id == current_user.id %}
+  <div>
+  <li class="list-group-item list-group-item-action list-group-item-primary">
+    {{ user.firstName }} {{ user.lastname }} <span class="badge badge-secondary badge-pill">You</span>
+  </li>
+  </div>
+  {% else %}
+  <div>
+  <li class="list-group-item list-group-item-action list-group-item-info">
+    {{ user.firstName }} {{ user.lastname }}
+  </li>
+  </div>
+</ul>
+  {% endif %}
+  {% endfor %}
+
+  {%if user.id == room.admin_id%}
+  <p>
+    <br>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Click to see the invitation code
+  </a>
+    <button type="button" class="btn btn-primary pull-right" onclick="window.location.href='{{ url_for( 'room.room_management') }}';">Room Management</button>
+  </p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body" >
+    {{room.invitation_code}}
+  </div>
+</div>
+
+{% else %}
+  <!-- Button trigger modal -->
+  <p><br></p>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#leaveRoom">
+  Leave Room
+</button>
+
+</div>
+
+<!-- Modal -->
+<form method = "POST">
+    <div class = "form-group">
+      <div class="modal fade" id="leaveRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Leave room</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to leave the room
+      </div>
+      <div>
+        <input
+        type="text"
+        class ="form-control"
+        id="roomLeave"
+        name="roomLeave"
+        placeholder="Type Yes to confirm"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+</form>
+
+{% endif %}
+{% endif %}
+
+{% endblock %}
+
+

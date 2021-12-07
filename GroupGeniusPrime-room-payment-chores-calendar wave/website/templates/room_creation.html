@@ -1,0 +1,56 @@
+{% extends "base.html" %}{% block title %}Room Creation{% endblock %}
+
+{% block content %}
+<head>
+  <style>
+    .myDiv{
+      border: 10px ridge;
+      border-color: #5E83A2;
+      background-color: #E5E5E5;
+      padding: 25px 50px 15px 50px;
+      }
+     .split{
+      float:left;
+      }
+  </style>
+</head>
+<h1 align = "center">Room Creation</h1>
+<br>
+
+<div class = "myDiv">
+    <form method = "POST">
+        <div class = "row">
+            <div class = "col-sm-5">
+                <div class = "form-group">
+                    <label for="roomName">New Room's Name: </label>
+                    <input
+                        type="name"
+                        class ="form-control"
+                        id="roomName"
+                        name="roomName"
+                        placeholder="Room Name"/>
+                </div>
+            </div>
+
+            <div class = "col-sm-5">
+                <div class = "form-group ">
+                    <label for="roomCapacity">New Room's Capacity: </label>
+                    <input
+                        type="text"
+                        class ="form-control"
+                        id="roomCapacity"
+                        name="roomCapacity"
+                        placeholder="Room Capacity"
+                        />
+                </div>
+            </div>
+
+            <div class = "col-sm-2">
+                <br />
+                <button type="submit" class="btn btn-block btn-primary">Create</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

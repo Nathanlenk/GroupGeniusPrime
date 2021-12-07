@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html>
+ <head>
+    <nav class="navbar sticky-top navbar-dark" style="background-color: #36648b;">
+        <div class="container-fluid">
+                  
+                  <a style="color: #ffffff" class ="navbar-brand" id="home" href="/">Home</a>
+                  <a style="color: #ffffff" class="navbar-brand" id="manageaccount" href="/manage-account">Manage Account</a>
+                  <a style="color: #ffffff" class="navbar-brand" id="room" href="/room">Room</a>
+                  <a style="color: #ffffff" class="navbar-brand" id="chats" href="/chats">Chats</a>
+                  <a style="color: #ffffff" class="navbar-brand" id="choresboard" href="/chores-board">Chores Board</a>
+                  <a style="color: #ffffff" class="navbar-brand" align="right" id="makepayment" href="/make-payment">Make a Payment</a>
+                  
+                </div>
+              </div>
+              
+    </nav>
+
+    
+
+  <title>calandar </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+  <script>
+  $(document).ready(function() {
+        var calendar = $('#calendar').fullCalendar({
+            editable:true,
+            header:{
+                left:'prev,next today',
+                center:'title',
+                right:'month,agendaWeek,agendaDay'
+    },
+    events: [{% for row in calendar %}{ id : '{{row.id}}', title : '{{row.title}}', start : '{{row.start_event}}', end : '{{row.end_event}}', }, {% endfor %}],
+    selectable:true,
+    selectHelper:true,
+    select: function(start, end, allDay)
+    {
+        var title = prompt("Enter Event Title");
+        if(title)
+        {
+            var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+            var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+            $.ajax({
+                url:"/insert",
+                type:"POST",
+                data:{title:title, start:start, end:end},
+                success:function(data){
+            
+        
+            alert("Added Successfully");
+            window.location.replace("/calendar");
+            location.reload(true);
+                }
+            })
+        }
+    },
+    editable:true,
+    eventResize:function(event)
+    {
+        var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+        var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+        var title = event.title;
+        var id = event.id;
+        $.ajax({
+            url:"/update",
+            type:"POST",
+            data:{title:title, start:start, end:end, id:id},
+            success:function(){
+                calendar.fullCalendar('refetchEvents');
+                alert('Event Update')
+                window.location.replace("/calendar")
+                location.reload(true);
+            }   
+        })
+    },
+      
+    eventDrop:function(event)
+    {
+        var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+        var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+        var title = event.title;
+        var id = event.id;
+        $.ajax({
+            url:"/update",
+            type:"POST",
+            data:{title:title, start:start, end:end, id:id},
+            success:function()
+            {
+                calendar.fullCalendar('refetchEvents');
+                window.location.replace("/calendar")
+                alert("Event Updated");
+                location.reload(true);
+            } 
+        });
+    },
+  
+    eventClick:function(event)
+    {
+        if(confirm("Are you sure you want to remove it?"))
+        {
+            var id = event.id;
+            $.ajax({
+            url:"/ajax_delete",
+            type:"POST",
+            data:{id:id},
+            
+            success:function()
+            {
+                calendar.fullCalendar('refetchEvents');
+                alert("Event Removed");
+                window.location.replace("/calendar")
+                location.reload(true);
+            }
+            })
+        }
+    },
+  
+   });
+  });
+     
+  </script>
+ </head>
+ <body>
+ 
+  <div class="container">
+   <div id="calendar"></div>
+  </div>
+ </body>
+</html>
+

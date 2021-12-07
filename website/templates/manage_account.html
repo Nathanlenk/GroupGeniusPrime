@@ -1,0 +1,103 @@
+{% extends "base.html" %}{% block title %}ManageAccount{% endblock %}
+
+{% block content %}
+<head>
+    <style>
+        .myDiv{
+        border: 10px ridge;
+        border-color: #5E83A2;
+        background-color: #E5E5E5;
+        padding: 50px 150px;
+        }
+    </style>
+</head>
+
+<h1 align = "center">Manage Account</h1>
+<h2 align = "center"> Change Information </h2>
+<div class = myDiv>
+<form method = "POST">
+    <div class = "form-group">
+        <label for="email">Current Email: {{user.email}}</label>
+        <input
+        type="email"
+        class ="form-control"
+        id="email"
+        name="email"
+        placeholder="New email"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Change Email</button>
+</form>
+<br>
+
+<form method = "POST">
+    <div class="form-group">
+        <label for="firstName">Current First Name: {{user.firstName}}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          name="firstName"
+          placeholder="New first name"
+        />
+      </div>
+    <button type="submit" class="btn btn-primary">Change First Name</button>
+</form>
+
+<br>
+
+<form method = "POST">
+    <div class = "form-group">
+        <label for="lastname">Current Last Name: {{user.lastname}}</label>
+        <input
+        type="text"
+        class ="form-control"
+        id="lastname"
+        name="lastname"
+        placeholder="New last name"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Change Last Name</button>
+</form>
+
+<br>
+
+<form method = "POST">
+    <div class = "form-group">
+        <label for="payment">Current Payment Link: {{user.paymentLink}}</label>
+        <input
+        type="text"
+        class ="form-control"
+        id="payment"
+        name="payment"
+        placeholder="New payment link"/>
+        (make sure to include the full link ie http://***)
+    </div>
+    <button type="submit" class="btn btn-primary">Change Payment Link</button>
+</form>
+
+<br>
+
+<form method = "POST">
+    <div class = "form-group">
+        <label for="password1" >Password</label>
+        <input
+        type="password"
+        class ="form-control"
+        id="password1"
+        name="password1"
+        placeholder="New Password"/>
+    </div>
+
+    <div class = "form-group">
+        <label for="password2">Password (Confirm)</label>
+        <input
+        type="password"
+        class ="form-control"
+        id="password2"
+        name="password2"
+        placeholder="Confirm New Password"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Change Password</button>
+</form>
+</div>
+{% endblock %}
